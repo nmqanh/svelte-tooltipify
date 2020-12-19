@@ -1,4 +1,5 @@
 <script>
+  import { fade } from 'svelte/transition'
   import { afterUpdate } from 'svelte'
   let horizontalPosition = 'center'
   let verticalPosition = 'top'
@@ -88,13 +89,13 @@
     box-sizing: border-box;
 
     .tooltip-arrow {
-      display: none;
       position: absolute;
       width: 0;
       height: 0;
       border-color: transparent;
       border-right-color: transparent;
       border-style: solid;
+      pointer-events: none;
 
       &.bottom {
         left: 50%;
@@ -111,20 +112,16 @@
         border-width: $arrowSize $arrowSize 0;
         border-top-color: var(--background-color);
       }
-
-      &.active {
-        display: block;
-      }
     }
 
     .tooltip-content {
-      display: none;
       padding: 3px 8px;
       position: absolute;
       text-align: center;
       background-color: var(--background-color);
       border-radius: 4px;
       width: auto;
+      pointer-events: none;
       white-space: nowrap;
 
       &.bottom {
@@ -147,10 +144,6 @@
       &.left {
         right: calc(50% - #{$arrowPosition});
       }
-
-      &.active {
-        display: block;
-      }
     }
   }
 </style>
@@ -166,18 +159,20 @@
   class="tooltip"
   on:mouseover={handleOnMouseOver}
   on:mouseout={handleOnMouseLeave}>
-  {#if content}
+  {#if content && active}
     <div
-      class:active
+      in:fade
+      out:fade
       class={`tooltip-arrow ${verticalPosition}`}
       style="--background-color: {backgroundColor};" />
     <div
+      in:fade
+      out:fade
       bind:this={tooltipContentNode}
-      class:active
       class={`tooltip-content ${verticalPosition} ${horizontalPosition}`}
       style="--background-color: {backgroundColor}; color: {textColor};">
       {content}
     </div>
-    <slot />
   {/if}
+  <slot />
 </div>
