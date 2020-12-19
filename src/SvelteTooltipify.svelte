@@ -6,15 +6,25 @@
   let fittingChecked = false
   let tooltipContentNode = null
   let wrapperNode = null
+  let windowScrollX
+  let windowScrollY
+  let windowWidth
+  let windowHeight
 
-  const handleOnMouseOver = ({ currentTarget }) => {
+  const handleOnMouseOver = () => {
     active = true
   }
-  const handleOnMouseLeave = (e) => {
+
+  const handleOnMouseLeave = () => {
     horizontalPosition = 'center'
     verticalPosition = 'top'
     active = false
     fittingChecked = false
+  }
+
+  // Hide tooltip on scroll or window resize
+  $: if (windowHeight || windowWidth || windowScrollX || windowScrollY) {
+    handleOnMouseLeave()
   }
 
   afterUpdate(() => {
@@ -110,7 +120,6 @@
     .tooltip-content {
       display: none;
       padding: 3px 8px;
-      color: #fff;
       position: absolute;
       text-align: center;
       background-color: var(--background-color);
@@ -145,6 +154,12 @@
     }
   }
 </style>
+
+<svelte:window
+  bind:scrollX={windowScrollX}
+  bind:scrollY={windowScrollY}
+  bind:innerWidth={windowWidth}
+  bind:innerHeight={windowHeight} />
 
 <div
   bind:this={wrapperNode}
