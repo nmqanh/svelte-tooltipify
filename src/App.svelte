@@ -1,4 +1,5 @@
 <script>
+  import SvelteTooltipify from './SvelteTooltipify.svelte'
   export let name
 </script>
 
@@ -27,7 +28,9 @@
 </style>
 
 <main>
-  <h1>Hello {name}!</h1>
+  <SvelteTooltipify content="Hello">
+    <h1>Hello {name}!</h1>
+  </SvelteTooltipify>
   <p>
     Visit the
     <a href="https://svelte.dev/tutorial">Svelte tutorial</a>
