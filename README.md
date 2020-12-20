@@ -16,6 +16,10 @@ This minimal project is to implement a tooltip Svelte component with following S
 - [x] Keep the code clean, concise, elegant, robust and efficient as possible
 - [x] Add animations and/or transitions when the tooltip appears and disappear
 - [x] Make use of advanced sass/scss features
+
+### Extra Checklist
+
+- [x] Added Jest and testing-library with a simple test.
 - [x] Integrated ESLint and Prettier.
 - [x] Pre-configurate VSCode settings to help install essential extensions
 - [x] Pre-configurate VSCode settings to auto format / auto fix based on eslint and prettier rules.
