@@ -21,10 +21,10 @@ This minimal project is to implement a tooltip Svelte component with following S
 
 - [x] Added Jest and testing-library with a simple test.
 - [x] Integrated ESLint and Prettier.
+- [x] Use core-js to build to vanillajs with polyfill to support older browsers such as IE11 and iOS Safari 9+
 - [x] Pre-configurate VSCode settings to help install essential extensions
 - [x] Pre-configurate VSCode settings to auto format / auto fix based on eslint and prettier rules.
 - [x] Deployed live demo to netlify (see below)
-- [x] Use core-js to build to vanillajs with polyfill to support older browsers such as IE11 and iOS Safari 9+
 
 ### Demo
 

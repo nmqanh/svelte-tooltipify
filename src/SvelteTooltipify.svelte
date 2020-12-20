@@ -1,6 +1,8 @@
 <script>
   import { fade } from 'svelte/transition'
   import { afterUpdate } from 'svelte'
+  import IsMobile from 'is-mobile'
+
   let horizontalPosition = 'center'
   let verticalPosition = 'top'
   let active = false
@@ -12,20 +14,33 @@
   let windowWidth
   let windowHeight
 
-  const handleOnMouseOver = () => {
+  let tooltipId = `tooltip-${Math.random()}`
+
+  const showTooltip = () => {
     active = true
   }
 
-  const handleOnMouseLeave = () => {
+  const isMobile = IsMobile()
+
+  const hideToolTip = () => {
     horizontalPosition = 'center'
     verticalPosition = 'top'
     active = false
     fittingChecked = false
   }
 
+  const handleDocumentTouch = (e) => {
+    if (e.target && e.target.parentNode) {
+      const clickedToolTipId = e.target.parentNode.getAttribute('id')
+      if (clickedToolTipId !== tooltipId) {
+        hideToolTip()
+      }
+    }
+  }
+
   // Hide tooltip on scroll or window resize
   $: if (windowHeight || windowWidth || windowScrollX || windowScrollY) {
-    handleOnMouseLeave()
+    hideToolTip()
   }
 
   afterUpdate(() => {
@@ -154,6 +169,7 @@
   }
 </style>
 
+<svelte:body on:touchstart={isMobile ? handleDocumentTouch : undefined} />
 <svelte:window
   bind:scrollX={windowScrollX}
   bind:scrollY={windowScrollY}
@@ -161,10 +177,12 @@
   bind:innerHeight={windowHeight} />
 
 <div
+  id={tooltipId}
   bind:this={wrapperNode}
   class="tooltip"
-  on:mouseover={handleOnMouseOver}
-  on:mouseout={handleOnMouseLeave}>
+  on:touchend={isMobile ? showTooltip : undefined}
+  on:mouseover={!isMobile ? showTooltip : undefined}
+  on:mouseout={hideToolTip}>
   {#if content && active}
     <div
       in:fade
