@@ -1,5 +1,6 @@
 import svelte from 'rollup-plugin-svelte'
 import commonjs from '@rollup/plugin-commonjs'
+import babel from 'rollup-plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
@@ -59,6 +60,24 @@ export default {
       dedupe: ['svelte']
     }),
     commonjs(),
+
+    babel({
+      extensions: ['.js', '.mjs', '.html', '.svelte'],
+      runtimeHelpers: true,
+      exclude: ['node_modules/@babel/**', 'node_modules/core-js/**'],
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: '> 0.25%, not dead, ie>=11',
+            modules: false,
+            useBuiltIns: 'usage',
+            forceAllTransforms: true,
+            corejs: 3
+          }
+        ]
+      ]
+    }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated

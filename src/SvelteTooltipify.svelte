@@ -37,19 +37,22 @@
       const documentWidth = document.documentElement.clientWidth
       const documentHeight = document.documentElement.clientHeight
 
-      let wrapperRect = wrapperNode.getBoundingClientRect()
-      let rightPos = wrapperRect.x + wrapperRect.width
-      let leftPos = wrapperRect.x
-      let topPos = wrapperRect.y
-      let bottomPos = wrapperRect.y + wrapperRect.height
+      const wrapperRect = wrapperNode.getBoundingClientRect()
+      const leftPos = wrapperRect.x !== undefined ? wrapperRect.x : wrapperRect.left
+      const topPos = wrapperRect.y !== undefined ? wrapperRect.y : wrapperRect.top
+      const rightPos = leftPos + wrapperRect.width
+      const bottomPos = topPos + wrapperRect.height
 
-      let tooltipContentRect = tooltipContentNode.getBoundingClientRect()
+      const tooltipContentRect = tooltipContentNode.getBoundingClientRect()
 
-      let fitRight = rightPos + tooltipContentRect.width <= window.scrollX + documentWidth
-      let fitLeft = leftPos - tooltipContentRect.width >= 0
+      const scrollX = window.scrollX !== undefined ? window.scrollX : window.pageXOffset
+      const scrollY = window.scrollY !== undefined ? window.scrollY : window.pageYOffset
 
-      let fitTop = topPos - tooltipContentRect.height >= 0
-      let fitBottom = bottomPos + tooltipContentRect.height <= window.scrollY + documentHeight
+      const fitRight = rightPos + tooltipContentRect.width <= scrollX + documentWidth
+      const fitLeft = leftPos - tooltipContentRect.width >= 0
+
+      const fitTop = topPos - tooltipContentRect.height >= 0
+      const fitBottom = bottomPos + tooltipContentRect.height <= scrollY + documentHeight
 
       if (fitTop) {
         verticalPosition = 'top'
@@ -75,7 +78,7 @@
 
   export let content = ''
   export let backgroundColor = '#000000'
-  export let textColor = '#ffffffff'
+  export let textColor = '#ffffff'
 </script>
 
 <style type="text/scss">
@@ -102,7 +105,9 @@
         top: 100%;
         margin-left: -$arrowSize;
         border-width: 0 $arrowSize $arrowSize;
-        border-bottom-color: var(--background-color);
+        border-top-color: transparent !important;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
       }
 
       &.top {
@@ -110,7 +115,9 @@
         left: 50%;
         margin-left: -$arrowSize;
         border-width: $arrowSize $arrowSize 0;
-        border-top-color: var(--background-color);
+        border-bottom-color: transparent !important;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
       }
     }
 
@@ -118,7 +125,6 @@
       padding: 3px 8px;
       position: absolute;
       text-align: center;
-      background-color: var(--background-color);
       border-radius: 4px;
       width: auto;
       pointer-events: none;
@@ -164,13 +170,13 @@
       in:fade
       out:fade
       class={`tooltip-arrow ${verticalPosition}`}
-      style="--background-color: {backgroundColor};" />
+      style="border-color: {backgroundColor};" />
     <div
       in:fade
       out:fade
       bind:this={tooltipContentNode}
       class={`tooltip-content ${verticalPosition} ${horizontalPosition}`}
-      style="--background-color: {backgroundColor}; color: {textColor};">
+      style="background-color: {backgroundColor}; color: {textColor};">
       {content}
     </div>
   {/if}

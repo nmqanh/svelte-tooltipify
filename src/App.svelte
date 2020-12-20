@@ -3,10 +3,6 @@
 </script>
 
 <style type="text/scss">
-  a {
-    cursor: pointer;
-  }
-
   .fixed {
     position: fixed;
   }
@@ -42,42 +38,65 @@
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
   }
+
+  .item {
+    color: blue;
+    cursor: pointer;
+  }
 </style>
 
 <main>
   <div class="fixed top left">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed top center">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed top right">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed middle left">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed middleCenter">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed middle right">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed bottom left">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed bottom center">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 
   <div class="fixed bottom right">
-    <SvelteTooltipify content="This is a tooltip"><a>Open tooltip</a></SvelteTooltipify>
+    <SvelteTooltipify content="This is a tooltip">
+      <span class="item">Open tooltip</span>
+    </SvelteTooltipify>
   </div>
 </main>
