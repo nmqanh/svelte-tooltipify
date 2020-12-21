@@ -106,7 +106,7 @@
     display: inline-block;
     box-sizing: border-box;
 
-    .tooltip-arrow {
+    &-arrow {
       position: absolute;
       width: 0;
       height: 0;
@@ -136,7 +136,7 @@
       }
     }
 
-    .tooltip-content {
+    &-content {
       padding: 3px 8px;
       position: absolute;
       text-align: center;
@@ -185,15 +185,13 @@
   on:mouseout={hideToolTip}>
   {#if content && active}
     <div
-      in:fade
-      out:fade
-      class={`tooltip-arrow ${verticalPosition}`}
+      transition:fade
+      class="tooltip-arrow {verticalPosition}"
       style="border-color: {backgroundColor};" />
     <div
-      in:fade
-      out:fade
+      transition:fade
       bind:this={tooltipContentNode}
-      class={`tooltip-content ${verticalPosition} ${horizontalPosition}`}
+      class="tooltip-content {verticalPosition} {horizontalPosition}"
       style="background-color: {backgroundColor}; color: {textColor};">
       {content}
     </div>
